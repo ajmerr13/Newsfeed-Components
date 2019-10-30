@@ -85,6 +85,15 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Jimmy Cracked Corn and i dont care',
+    date: 'Jan 31st, 2019',
+    firstParagraph: `Gally gunwalls red ensign run a rig chandler scuttle blow the man down skysail clap of thunder hearties. Tender lateen sail black jack parrel long clothes Brethren of the Coast fathom heave down coxswain six pounders. Shiver me timbers ye bilge rat port me Spanish Main lad to go on account list topgallant. `,
+
+    secondParagraph: `Bilged on her anchor lad hang the jib scurvy run a rig jack topsail lanyard avast shrouds. Furl swab starboard topmast haul wind Jack Tar pillage rigging Gold Road galleon. Quarter ballast knave gun tender Buccaneer list measured fer yer chains swab swing the lead. `,
+
+    thirdParagraph: `Buccaneer topgallant grog smartly mizzenmast wench crimp swab gally yawl. Scuttle bilge water furl Yellow Jack maroon fathom yawl me Arr hogshead. Crow's nest come about barque overhaul Barbary Coast Letter of Marque crimp belaying pin topgallant hempen halter..`
   }
 ];
 
@@ -110,5 +119,57 @@ const data = [
   Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
 
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
-
 */
+
+  // grab the parent element to append our data too
+  const articles = document.querySelector('.articles')
+
+  // we looped through the data and created panels for each content and title
+  data.forEach(data => {
+    articles.appendChild(createCard(data.title, data.date, data.firstParagraph, data.secondParagraph, data.thirdParagraph))
+  })
+  
+  //define functional component here
+  function createCard(title, date, firstParagraph, secondParagraph, thirdParagraph){
+    
+  
+    // define new elements
+    const article = document.createElement('div')
+    const articleh2 = document.createElement('h2')
+    const articleDate = document.createElement('p')
+    const articlep1 =document.createElement("p")
+    const articlep2 =document.createElement("p")
+    const articlep3 =document.createElement("p")
+    const articleButton = document.createElement("span")
+    
+    // Setup structure of elements
+    article.appendChild(articleh2);
+    article.appendChild(articleDate);
+    article.appendChild(articlep1);
+    article.appendChild(articlep2);
+    article.appendChild(articlep3);
+    article.appendChild(articleButton);
+    
+    
+    // set class names
+      article.classList.add("article")
+      articleDate.classList.add("date")
+      articleButton.classList.add("expandButton")
+
+    // set text content
+    articleh2.textcontent = title;
+    articleDate.textContent = date;
+    articlep1.textContent = firstParagraph;
+    articlep2.textContent = secondParagraph;
+    articlep3.textContent = thirdParagraph;
+    articleButton.textContent = "Expand " + '\u25bc'
+    
+    
+
+
+    articleButton.addEventListener('click', () =>{
+      article.classList.toggle('article-open')
+    })
+
+    return article
+  }
